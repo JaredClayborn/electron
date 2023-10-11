@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Blood Sugar Helper - Meals</title>
+    <link rel="stylesheet" href="index.css" />
+    <script>
+      const getMealInsulin = () => {
+        const carbsInMeal = document.getElementById("carbs-in-meal").value;
+        const gramsPerUnit = document.getElementById("grams-per-unit").value;
+        let carbsParsed = undefined;
+        let gramsParsed = undefined;
+        try {
+          carbsParsed = parseInt(carbsInMeal);
+          gramsParsed = parseInt(gramsPerUnit);
+        } catch (e) {
+          console.error("There was an error parsing the units: ", e);
+        }
+        if (carbsParsed && gramsParsed) {
+          const units = (carbsParsed / gramsParsed).toFixed(0);
+          const output = document.getElementById("insulin-output");
+          output.innerHTML = `${units} units for meal with ${carbsInMeal} carbs`;
+        }
+      };
+    </script>
+    <script src="shared.js"></script>
+  </head>
+  <body>
+    <h1 class="centered">Meal Insulin</h1>
+    <article>
+      <div>
+        <p>
+          The meal insulin formula used on this page is as follows:
+          <br />
+          <code> {GRAMS_OF_CARBS} / {GRAMS_PER_UNIT} </code>
+          <br />
+          If this is an incorrect formula for you, please do not use this form.
+          <span class="note"
+            >This page will round (up or down) to the nearest unit</span
+          >
+        </p>
+      </div>
+      <div class="form">
+        <label for="carbs-in-meal" class="carbs-in-meal-label"
+          >Carbs in meal:</label
+        >
+        <input
+          type="text"
+          id="carbs-in-meal"
+          name="carbs-in-meal"
+          pattern="[0-9]+"
+          placeholder="Carbs in meal"
+          class="carbs-in-meal-input"
+        />
+        <label for="grams-per-unit" class="grams-per-unit-label"
+          >Grams per unit</label
+        >
+        <input
+          type="text"
+          name="grams-per-unit"
+          id="grams-per-unit"
+          placeholder="Grams per unit"
+          pattern="[0-9]+"
+          class="grams-per-unit-input"
+        />
+        <button type="button" role="button" onclick="getMealInsulin()">
+          Get Meal Insulin
+        </button>
+        <h3 id="insulin-output"></h3>
+      </div>
+    </article>
+    <ul id="navContainer"></ul>
+    <script>
+      const anchors = createMenu("meals");
+      const navContainer = document.getElementById("navContainer");
+      anchors.forEach((anchor) => {
+        const li = document.createElement("li");
+        li.appendChild(anchor);
+        navContainer.appendChild(li);
+      });
+    </script>
+  </body>
+</html>

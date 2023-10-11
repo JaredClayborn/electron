@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Blood Sugar Helper - Correction</title>
+    <link rel="stylesheet" href="index.css" />
+    <script>
+      const getCorrection = () => {
+        const bloodSugar = document.getElementById("blood-sugar").value;
+        const correctionFactor =
+          document.getElementById("correction-factor").value;
+        let bloodSugarParsed = undefined;
+        let correctionFactorParsed = undefined;
+        try {
+          bloodSugarParsed = parseInt(bloodSugar);
+          correctionFactorParsed = parseInt(correctionFactor);
+        } catch (e) {
+          console.error("There was an error trying to parse the units: ", e);
+        }
+        if (bloodSugarParsed && correctionFactorParsed) {
+          const correction = (
+            (bloodSugarParsed - 150) /
+            correctionFactorParsed
+          ).toFixed(0);
+          const output = document.getElementById("correction-output");
+          output.innerHTML = `Correction value: ${correction} units`;
+        }
+      };
+    </script>
+    <script src="shared.js"></script>
+  </head>
+  <body>
+    <h1 class="centered">Blood Sugar Correction</h1>
+    <article>
+      <div>
+        <p>
+          The correction formula used on this page is as follows:
+          <br />
+          <code> ({BLOOD_SUGAR} - 150)/{CORRECTION_FACTOR} </code>
+          <br />
+          If this is an incorrect formula for you, please do not use this form.
+          <span class="note"
+            >This page will round (up or down) to the nearest unit</span
+          >
+        </p>
+      </div>
+      <div class="form">
+        <label for="blood-sugar" class="blood-sugar-label">Blood Sugar:</label>
+        <input
+          type="text"
+          name="blood-sugar"
+          id="blood-sugar"
+          class="blood-sugar-input"
+          placeholder="Blood Sugar"
+          pattern="[0-9]+"
+        />
+        <label for="correction-factor" class="correction-factor-label"
+          >Correction Factor:</label
+        >
+        <input
+          type="text"
+          name="correction-factor"
+          id="correction-factor"
+          class="correction-factor-input"
+          placeholder="Correction Factor"
+          pattern="[0-9]+"
+        />
+        <button type="button" role="button" onclick="getCorrection()">
+          Get Correction
+        </button>
+        <h3 id="correction-output"></h3>
+      </div>
+    </article>
+    <ul id="navContainer"></ul>
+    <script>
+      const anchors = createMenu("correction");
+      const navContainer = document.getElementById("navContainer");
+      anchors.forEach((anchor) => {
+        const li = document.createElement("li");
+        li.appendChild(anchor);
+        navContainer.appendChild(li);
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Simple Blood Sugar Helper</title>
+    <script src="shared.js"></script>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <h1 class="centered">Blood Sugar Helper</h1>
+    <article>
+      <div class="disclaimer">
+        <p class="important">
+          All content and media found on this site is created and published
+          online for information purposes only. It is not intended to be a
+          substitute for professional medical advice, and it should not be
+          relied on as health or personal advice
+        </p>
+        <p>
+          Always seek the guidance of your doctor or other qualified health
+          professional with any questions you may have regarding your health or
+          a medical condition. Never disregard the advice of a medical
+          professional, or delay in seeking it because of something you have
+          read on this Website.
+        </p>
+        <p class="color-red notice">
+          If you think you may have a medical emergency, call your doctor, go to
+          the nearest hospital emergency department, or call the emergency
+          services immediately. If you choose to rely on any information
+          provided by this Website, you do so solely at your own risk.
+        </p>
+      </div>
+    </article>
+    <ul id="navContainer"></ul>
+    <script>
+      const anchors = createMenu("index");
+      const navContainer = document.getElementById("navContainer");
+      anchors.forEach((anchor) => {
+        const li = document.createElement("li");
+        li.appendChild(anchor);
+        navContainer.appendChild(li);
+      });
+    </script>
+  </body>
+</html>
